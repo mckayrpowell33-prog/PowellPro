@@ -119,12 +119,24 @@ svg {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../img/boise-skyline.svg") center 80% / cover no-repeat;
-  opacity: 0.2;
+  background: url("../img/boise-skyline.svg") center bottom / cover no-repeat;
+  opacity: 0.16;
+  filter: grayscale(100%);
+  z-index: 0;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 60%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero-content {
   position: relative;
+  z-index: 2;
   display: grid;
   gap: 32px;
   align-items: center;
