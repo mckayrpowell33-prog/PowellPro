@@ -81,6 +81,33 @@
     </div>
   </footer>
 
+  <div class="chat-widget" data-chat-widget data-api-endpoint="/api/chat">
+    <button class="chat-toggle" type="button" aria-expanded="false" aria-controls="chat-panel">
+      <span class="chat-toggle__icon" aria-hidden="true">💬</span>
+      <span class="chat-toggle__label">Chat</span>
+    </button>
+    <section id="chat-panel" class="chat-panel" role="dialog" aria-label="Powell Projects chat" aria-hidden="true">
+      <div class="chat-header">
+        <div>
+          <p class="chat-title">Powell Projects</p>
+          <p class="chat-subtitle">AI Operations & Automation</p>
+        </div>
+        <button class="chat-close" type="button" aria-label="Close chat">×</button>
+      </div>
+      <div class="chat-messages" aria-live="polite">
+        <div class="chat-message chat-message--assistant">
+          <p>Hi! How can I help with your AI operations or automation needs?</p>
+        </div>
+      </div>
+      <p class="chat-disclaimer">This chat may be inaccurate; confirm details on a call.</p>
+      <form class="chat-form">
+        <label class="sr-only" for="chat-input">Message</label>
+        <input id="chat-input" name="message" type="text" placeholder="Type your message..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
   <script src="assets/js/main.js"></script>
   <!-- Analytics placeholder: paste your analytics script here. -->
 </body>
