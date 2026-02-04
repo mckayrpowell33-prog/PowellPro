@@ -23,6 +23,20 @@ This repository contains a complete, static marketing website for an AI Operatio
 - Formspree: Replace `your-form-id` in the contact form action.
 - Domain: Replace `https://example.com` in meta tags, `sitemap.xml`, and `robots.txt`.
 
+## Chatbot Upgrade
+### Setup
+1. Chat UI loads from `assets/css/chatbot.css` and `assets/js/chatbot.js`.
+2. The Knowledge Base lives in `kb.html` and powers the chatbot replies.
+3. Local chat logs are stored in browser `localStorage` and can be viewed at `chat-logs.html`.
+
+### Where to edit KB content
+- Update the KB copy, bullets, and FAQ directly in `kb.html`.
+- Keep the `id` values on each KB section (`services`, `deliverables`, `timeline`, `packages`, `faq`, `contact`) so the chatbot can link to them.
+
+### Where to edit booking link and email
+- Edit `CONTACT_EMAIL` and `BOOKING_LINK` in `assets/js/chatbot.js`.
+- Update the placeholders in `kb.html` under “Contact + booking link placeholder.”
+
 ## Deploy to GitHub Pages
 1. Commit and push this repository to GitHub.
 2. In the repo, go to **Settings → Pages**.
@@ -35,4 +49,3 @@ This repository contains a complete, static marketing website for an AI Operatio
 2. In GitHub Pages settings, add your custom domain.
 3. Update DNS records to point to GitHub Pages (A records or CNAME as instructed).
 4. Enable HTTPS in GitHub Pages once DNS is verified.
-

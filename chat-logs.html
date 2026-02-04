@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat Logs | Powell Projects</title>
+  <meta name="description" content="Local chatbot logs for Powell Projects." />
+  <meta name="theme-color" content="#1a5d9c" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="assets/css/styles.css" as="style" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-roofline.svg" alt="Roofline chart logo" />
+        Powell Projects
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="services.html">Services</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="button secondary" href="contact.html">Book a call</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <h1>Chat Logs (Local)</h1>
+        <p class="section-subtitle">This admin view reads from browser localStorage only. Use the buttons below to download or clear logs.</p>
+        <div class="hero-cta">
+          <button class="button primary" type="button" id="download-logs">Download JSON</button>
+          <button class="button secondary" type="button" id="clear-logs">Clear logs</button>
+        </div>
+        <table class="table" id="logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>User Message</th>
+              <th>Bot Reply</th>
+              <th>Quick Action</th>
+              <th>Fallback</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p class="notice" id="logs-empty" hidden>No logs found yet.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">
+          <img src="assets/img/logo-roofline.svg" alt="Roofline chart logo" />
+          Powell Projects
+        </div>
+        <p class="tagline">AI Operations for small businesses, real estate professionals, and local service teams.</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:Mckayrpowell33@gmail.com">Mckayrpowell33@gmail.com</a></p>
+        <p>Phone: <a href="tel:9868884844">(986) 888-4844</a></p>
+        <p><a href="contact.html">Book a call</a></p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <p><a href="services.html">Services</a></p>
+        <p><a href="pricing.html">Pricing</a></p>
+        <p><a href="case-studies.html">Case Studies</a></p>
+        <p><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+      </div>
+      <div>
+        <h3>Location</h3>
+        <p>Boise, Idaho</p>
+        <small>© 2024 Powell Projects. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CHAT_LOG_KEY = 'powellChatLogs';
+    const tableBody = document.querySelector('#logs-table tbody');
+    const emptyState = document.querySelector('#logs-empty');
+
+    const renderLogs = () => {
+      const logs = JSON.parse(localStorage.getItem(CHAT_LOG_KEY) || '[]');
+      tableBody.innerHTML = '';
+      if (!logs.length) {
+        emptyState.hidden = false;
+        return;
+      }
+      emptyState.hidden = true;
+      logs.forEach((log) => {
+        const row = document.createElement('tr');
+        const cells = [
+          log.timestamp,
+          log.userMessage,
+          log.botReply,
+          log.quickAction || '-',
+          log.fallback ? 'Yes' : 'No'
+        ];
+        cells.forEach((value) => {
+          const cell = document.createElement('td');
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+        tableBody.appendChild(row);
+      });
+    };
+
+    document.querySelector('#download-logs').addEventListener('click', () => {
+      const logs = JSON.parse(localStorage.getItem(CHAT_LOG_KEY) || '[]');
+      const blob = new Blob([JSON.stringify(logs, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'powell-chat-logs.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    document.querySelector('#clear-logs').addEventListener('click', () => {
+      localStorage.removeItem(CHAT_LOG_KEY);
+      renderLogs();
+    });
+
+    renderLogs();
+  </script>
+</body>
+</html>
